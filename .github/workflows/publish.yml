@@ -1,0 +1,27 @@
+name: publish
+# Publishes uncloak to PyPI via Trusted Publishing (OIDC — no API token stored).
+# One-time setup: create the project on PyPI, add this repo as a Trusted Publisher
+# (workflow: publish.yml, environment: pypi), then set repo variable PYPI_READY=true.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    if: ${{ vars.PYPI_READY == 'true' }}
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write        # required for Trusted Publishing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
