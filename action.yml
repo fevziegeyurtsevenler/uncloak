@@ -1,0 +1,39 @@
+name: "uncloak"
+description: "Reveal hidden prompt injection & supply-chain risks in AI agent extensions (skills, MCP, rules files)."
+branding:
+  icon: "eye-off"
+  color: "purple"
+inputs:
+  path:
+    description: "File or directory to scan"
+    required: false
+    default: "."
+  fail-on:
+    description: "Fail the job on a finding at/above this severity (info|low|medium|high|critical)"
+    required: false
+    default: "high"
+  format:
+    description: "Console output format (terminal|json|sarif)"
+    required: false
+    default: "terminal"
+  sarif-file:
+    description: "If set, also write a SARIF report to this path (for code-scanning upload)"
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+    - name: Install uncloak
+      shell: bash
+      run: pip install "${{ github.action_path }}"
+    - name: Write SARIF report
+      if: ${{ inputs.sarif-file != '' }}
+      shell: bash
+      run: uncloak scan "${{ inputs.path }}" --format sarif -o "${{ inputs.sarif-file }}"
+    - name: Scan
+      shell: bash
+      run: uncloak scan "${{ inputs.path }}" --format "${{ inputs.format }}" --fail-on "${{ inputs.fail-on }}"
