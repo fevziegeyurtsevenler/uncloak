@@ -2,7 +2,8 @@
 
 <p align="center">
   <b>Reveal the prompt injection you can't see.</b><br>
-  A zero-dependency scanner that finds <b>hidden instructions</b> and <b>supply-chain risks</b><br>
+  A zero-dependency, <b>multilingual</b> scanner that finds <b>hidden instructions</b> and
+  <b>supply-chain risks</b><br>
   in AI agent extensions — Claude/agent <b>Skills</b>, <b>MCP servers</b>, and <b>rules files</b>.
 </p>
 
@@ -54,6 +55,29 @@ structural: **agents cannot separate instructions from data**, so any text an
 extension carries — even text you cannot see — can become a command.
 
 `uncloak` is the "read it before you run it" check for that supply chain.
+
+## How uncloak is different
+
+Invisible-Unicode detection is no longer exotic — enterprise scanners
+(NVIDIA SkillSpector, `snyk/agent-scan`, Cisco `skill-scanner`) added forms of it
+in 2026. `uncloak` is not trying to out-feature them. It's the **small, honest,
+open** option built around gaps those tools leave:
+
+- **Multilingual by design.** Injection/stealth/credential patterns work in
+  **Turkish and English**, not just English. Most audits (including the big vendor
+  studies) only look at English payloads — non-English instruction smuggling walks
+  right through. This is uncloak's core wedge and it's tested.
+- **Covers the rules-file surface.** `.cursorrules`, `CLAUDE.md`, `AGENTS.md` are
+  among the *least*-scanned attack surfaces; uncloak treats them as first-class.
+- **Precision-minded & explainable.** Every finding cites a stable `UCxxx` rule
+  mapped to OWASP LLM / MITRE ATLAS, so you can see *why*, not just *that*.
+- **Zero dependencies, runs in CI in seconds**, emits SARIF.
+- **Static analysis only** — a deliberate scope. It won't catch a self-extracting
+  payload that only decloaks at runtime; pair it with sandboxing (see below).
+
+It's also the reference scanner behind an **open, reproducible audit** of real-world
+agent extensions (dataset + findings) — because the field's numbers are currently
+locked inside closed vendor reports.
 
 ## Install
 

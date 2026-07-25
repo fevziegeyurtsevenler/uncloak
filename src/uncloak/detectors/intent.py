@@ -22,7 +22,10 @@ _PATTERNS: list[tuple[str, re.Pattern]] = [
     ("UC201", re.compile(
         r"(?:ignore|disregard|forget|override)\s+(?:all\s+|the\s+|any\s+|your\s+)*"
         r"(?:previous|prior|above|earlier|preceding|system|initial)\s+"
-        r"(?:instruction|prompt|context|rule|direction)", _FLAGS)),
+        r"(?:instruction|prompt|context|rule|direction)"
+        # Turkish: "önceki talimatları yoksay / görmezden gel / dikkate alma"
+        r"|(?:önceki|yukarıdaki|bütün|tüm|sistem)[^\n]{0,25}(?:talimat|komut|kural|yönerge)[^\n]{0,25}"
+        r"(?:yoksay|görmezden|unut|dikkate\s+alma|boşver|geçersiz)", _FLAGS)),
     ("UC202", re.compile(
         r"you\s+are\s+now\b|act\s+as\s+(?:an?\s+)?(?:dan|unrestricted|jailbroken|evil)"
         r"|do\s+anything\s+now|developer\s+mode|\bDAN\b|jailbreak", _FLAGS)),
@@ -32,14 +35,18 @@ _PATTERNS: list[tuple[str, re.Pattern]] = [
         r"|without\s+the\s+user['’]?s?\s+(?:knowledge|awareness|consent)"
         r"|keep\s+(?:this|it)\s+(?:secret|hidden|between\s+us)"
         r"|secretly\s+(?:send|copy|read|forward|exfiltrate|post|upload)"
-        r"|silently\s+(?:send|copy|read|forward|exfiltrate|post|upload)", _FLAGS)),
+        r"|silently\s+(?:send|copy|read|forward|exfiltrate|post|upload)"
+        # Turkish: "kullanıcıya söyleme / haber vermeden / gizlice / sessizce"
+        r"|kullanıcı(?:ya|dan)[^\n]{0,25}(?:söyleme|haber\s+verme|bildirme|gösterme|gizle)"
+        r"|(?:gizlice|sessizce|haber\s+vermeden|kullanıcıdan\s+gizle)", _FLAGS)),
     ("UC205", re.compile(
         r"if\s+(?:the\s+)?user\s+(?:asks|says|mentions|requests|types)\b[^\n]{0,60}"
         r"(?:then\s+)?(?:secretly|silently|also|quietly|additionally)"
         r"|when(?:ever)?\b[^\n]{0,40}\bthen\s+secretly", _FLAGS)),
     ("UC301", re.compile(
         r"\b(?:api[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token|bearer[_-]?token"
-        r"|private[_-]?key|aws[_-]?secret|client[_-]?secret|password|passwd|credential)\b", _FLAGS)),
+        r"|private[_-]?key|aws[_-]?secret|client[_-]?secret|password|passwd|credential"
+        r"|parola|şifre|gizli\s+anahtar|api\s+anahtar[ıi]?)\b", _FLAGS)),
     ("UC302", re.compile(
         r"\.env\b|/\.ssh/|\bid_rsa\b|/\.aws/|\.aws/credentials|/etc/passwd|\.netrc\b"
         r"|\.git-credentials|/\.config/gcloud|login\s*data|cookies\.sqlite|keychain", _FLAGS)),
