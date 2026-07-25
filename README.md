@@ -75,9 +75,11 @@ open** option built around gaps those tools leave:
 - **Static analysis only** — a deliberate scope. It won't catch a self-extracting
   payload that only decloaks at runtime; pair it with sandboxing (see below).
 
-It's also the reference scanner behind an **open, reproducible audit** of real-world
-agent extensions (dataset + findings) — because the field's numbers are currently
-locked inside closed vendor reports.
+It's also battle-tested: uncloak was run across **3,168 real public agent extensions**
+in the [`skills-in-the-wild`](https://github.com/fevziegeyurtsevenler/skills-in-the-wild)
+open audit — which both stress-tested its precision (that run drove the 0.1.1
+false-positive fixes) and produced open data the field otherwise keeps inside closed
+vendor reports.
 
 ## Install
 
