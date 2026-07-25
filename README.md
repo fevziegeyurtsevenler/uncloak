@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.svg" alt="uncloak" width="100%"></p>
+
 <h1 align="center">uncloak</h1>
 
 <p align="center">
