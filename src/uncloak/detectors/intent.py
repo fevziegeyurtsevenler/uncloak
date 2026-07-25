@@ -27,8 +27,11 @@ _PATTERNS: list[tuple[str, re.Pattern]] = [
         r"|(?:önceki|yukarıdaki|bütün|tüm|sistem)[^\n]{0,25}(?:talimat|komut|kural|yönerge)[^\n]{0,25}"
         r"(?:yoksay|görmezden|unut|dikkate\s+alma|boşver|geçersiz)", _FLAGS)),
     ("UC202", re.compile(
-        r"you\s+are\s+now\b|act\s+as\s+(?:an?\s+)?(?:dan|unrestricted|jailbroken|evil)"
-        r"|do\s+anything\s+now|developer\s+mode|\bDAN\b|jailbreak", _FLAGS)),
+        r"act\s+as\s+(?:an?\s+)?(?:dan|unrestricted|jailbroken|evil|uncensored)"
+        r"|do\s+anything\s+now|developer\s+mode|jailbreak"
+        r"|you\s+are\s+now\s+(?:an?\s+)?(?:dan|unrestricted|uncensored|free|evil|not\s+bound)"
+        # DAN as an explicit uppercase acronym only (avoids Indonesian 'dan' = 'and')
+        r"|(?-i:\bDAN\b)", _FLAGS)),
     ("UC203", re.compile(
         r"do\s*n['o]?t\s+(?:mention|tell|inform|reveal|notify|alert|show)\b[^\n]{0,40}\buser"
         r"|without\s+(?:telling|informing|notifying|alerting)\s+(?:the\s+)?user"
@@ -51,9 +54,11 @@ _PATTERNS: list[tuple[str, re.Pattern]] = [
         r"\.env\b|/\.ssh/|\bid_rsa\b|/\.aws/|\.aws/credentials|/etc/passwd|\.netrc\b"
         r"|\.git-credentials|/\.config/gcloud|login\s*data|cookies\.sqlite|keychain", _FLAGS)),
     ("UC303", re.compile(
-        r"https?://[^\s'\"]*(?:webhook|/hook|collect|exfil|beacon|pastebin|paste\.ee"
-        r"|requestbin|pipedream|ngrok|burpcollaborator|interact\.sh|oast\.|dnslog|termbin)"
-        r"|https?://\d{1,3}(?:\.\d{1,3}){3}\b", _FLAGS)),
+        r"https?://[^\s'\"]*(?:webhook\.|exfil|beacon|pastebin|paste\.ee"
+        r"|requestbin|pipedream\.net|burpcollaborator|interact\.sh|oast\.|dnslog|termbin)"
+        # raw-IP endpoints, excluding localhost / RFC1918 private ranges
+        r"|https?://(?!127\.|0\.|10\.|192\.168\.|172\.(?:1[6-9]|2\d|3[01])\.)"
+        r"\d{1,3}(?:\.\d{1,3}){3}\b", _FLAGS)),
     ("UC304", re.compile(
         r"\b(?:nslookup|dig|host)\b[^\n]{0,40}\$\(?"
         r"|[a-z0-9.-]+\.(?:dnslog|oast|interact|burpcollaborator)\.[a-z]{2,}", _FLAGS)),

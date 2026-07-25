@@ -54,14 +54,45 @@ def _tags(text: str, path: str) -> list[Finding]:
     return [rules.finding("UC101", path, line=_line_of(text, idx), evidence=ev[:400])]
 
 
+def _is_emoji(cp: int) -> bool:
+    return (
+        0x1F000 <= cp <= 0x1FAFF or 0x2600 <= cp <= 0x27BF or 0x2190 <= cp <= 0x21FF
+        or cp == 0xFE0F or 0x1F1E6 <= cp <= 0x1F1FF or 0x2B00 <= cp <= 0x2BFF
+        or 0x20D0 <= cp <= 0x20FF or 0x2300 <= cp <= 0x23FF
+    )
+
+
+def _suspicious_zw(text: str, i: int) -> bool:
+    """A zero-width char is suspicious only when it fragments Latin/ASCII text.
+
+    It is *benign* when it is a leading byte-order mark, part of an emoji ZWJ
+    sequence, or a joiner inside a non-Latin script (e.g. Indic ZWNJ/ZWJ, Arabic).
+    Those are the real-world sources of false positives.
+    """
+    cp = ord(text[i])
+    if cp == 0xFEFF and i == 0:
+        return False  # byte-order mark
+    neighbours = []
+    if i > 0:
+        neighbours.append(text[i - 1])
+    if i + 1 < len(text):
+        neighbours.append(text[i + 1])
+    for nb in neighbours:
+        o = ord(nb)
+        if _is_emoji(o):
+            return False  # emoji ZWJ / variation sequence
+        if nb.isalpha() and not nb.isascii():
+            return False  # joiner inside a non-Latin script
+    return True
+
+
 def _zero_width(text: str, path: str) -> list[Finding]:
-    hits = [c for c in text if ord(c) in ZERO_WIDTH]
-    if not hits:
+    idxs = [i for i, c in enumerate(text) if ord(c) in ZERO_WIDTH and _suspicious_zw(text, i)]
+    if not idxs:
         return []
-    idx = _first_index(text, lambda cp: cp in ZERO_WIDTH)
-    names = ", ".join(sorted({f"U+{ord(c):04X}" for c in hits}))
-    return [rules.finding("UC102", path, line=_line_of(text, idx),
-                          evidence=f"{len(hits)} zero-width chars ({names})")]
+    names = ", ".join(sorted({f"U+{ord(text[i]):04X}" for i in idxs}))
+    return [rules.finding("UC102", path, line=_line_of(text, idxs[0]),
+                          evidence=f"{len(idxs)} zero-width chars fragmenting text ({names})")]
 
 
 def _bidi(text: str, path: str) -> list[Finding]:
@@ -75,13 +106,33 @@ def _bidi(text: str, path: str) -> list[Finding]:
 
 
 def _variation_selectors(text: str, path: str) -> list[Finding]:
-    hits = [c for c in text if _in_variation_selector(ord(c))]
-    # A single VS on an emoji is legitimate; a run of them is a data channel.
-    if len(hits) < 4:
+    # Legitimate use is ONE selector per emoji base (e.g. ⚠️ = '⚠' + U+FE0F).
+    # Only a *run* of >=2 consecutive selectors, or any selector from the
+    # variation-selector *supplement* (U+E0100-E01EF, near-never legitimate in
+    # text), indicates a covert byte channel rather than emoji styling.
+    run = 0
+    max_run = 0
+    first = -1
+    supp = False
+    for i, c in enumerate(text):
+        cp = ord(c)
+        if _in_variation_selector(cp):
+            run += 1
+            if 0xE0100 <= cp <= 0xE01EF:
+                supp = True
+                if first < 0:
+                    first = i
+            if run >= 2 and first < 0:
+                first = i - 1
+            max_run = max(max_run, run)
+        else:
+            run = 0
+    if max_run < 2 and not supp:
         return []
-    idx = _first_index(text, lambda cp: _in_variation_selector(cp))
+    idx = first if first >= 0 else 0
     return [rules.finding("UC104", path, line=_line_of(text, idx),
-                          evidence=f"{len(hits)} variation selectors (possible encoded byte stream)")]
+                          evidence=f"run of {max_run} consecutive variation selectors "
+                                   f"(possible encoded byte stream)")]
 
 
 # Confusable letters that are frequently abused (non-Latin look-alikes).
