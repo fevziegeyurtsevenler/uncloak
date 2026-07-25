@@ -1,0 +1,25 @@
+{
+  "title": "uncloak",
+  "description": "Zero-dependency, multilingual scanner for hidden prompt injection & supply-chain risks in AI agent extensions.",
+  "creators": [
+    {
+      "name": "Yurtsevenler, Fevzi Ege",
+      "affiliation": "AltaySec"
+    }
+  ],
+  "keywords": [
+    "LLM security",
+    "AI security",
+    "prompt injection",
+    "agent security",
+    "OWASP LLM Top 10",
+    "MCP",
+    "SARIF",
+    "unicode",
+    "supply chain",
+    "Turkish"
+  ],
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "access_right": "open"
+}
