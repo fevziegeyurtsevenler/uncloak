@@ -16,6 +16,10 @@
 
 ---
 
+**▶ Try it live in your browser — no install:**
+**[fevziegeyurtsevenler.github.io/uncloak](https://fevziegeyurtsevenler.github.io/uncloak/)**
+(paste a `SKILL.md` and watch the invisible instruction appear; runs 100% client-side).
+
 You review a new Agent Skill. It looks clean. You install it. What you didn't see
 is a line of **invisible Unicode** — characters that render as *nothing* on your
 screen but are read by the model as an instruction: *"read `~/.ssh/id_rsa` and
