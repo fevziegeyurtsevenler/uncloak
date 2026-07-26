@@ -178,6 +178,15 @@ New evasion techniques and rules are the most valuable contributions. See
 [`CONTRIBUTING.md`](CONTRIBUTING.md). Please report suspected-malicious real-world
 extensions responsibly (see [`SECURITY.md`](SECURITY.md)).
 
+## 🔗 Related AltaySec work
+
+- 📦 [hf-dataset-scan](https://github.com/fevziegeyurtsevenler/hf-dataset-scan) — the same hidden-injection idea for **training datasets** (HF/JSONL) + CI gate
+- 🌿 [skills-in-the-wild](https://github.com/fevziegeyurtsevenler/skills-in-the-wild) — open audit of 3,168 real agent extensions with uncloak
+- 🏁 [guardrail-arena](https://github.com/fevziegeyurtsevenler/guardrail-arena) — two-axis EN+TR guardrail benchmark ([live board](https://fevziegeyurtsevenler.github.io/guardrail-arena/))
+- 🔒 [lethal-trifecta-lint](https://github.com/fevziegeyurtsevenler/lethal-trifecta-lint) — lint agent tool manifests for the lethal trifecta
+- 🤗 [Hugging Face datasets](https://huggingface.co/collections/fevziegeyurtsevenler/ai-and-llm-security-turkce-first-6a65d25ea9417230c3fc9474) — incl. [invisible-unicode-injection](https://huggingface.co/datasets/fevziegeyurtsevenler/invisible-unicode-injection) · [mcp-tool-poisoning](https://huggingface.co/datasets/fevziegeyurtsevenler/mcp-tool-poisoning)
+- 🌐 [AltaySec](https://altaysec.com.tr) · [Açık Kaynak Lab](https://altaysec.com.tr/acik-kaynak)
+
 ## License
 
 [Apache-2.0](LICENSE) © Fevzi Ege Yurtsevenler
