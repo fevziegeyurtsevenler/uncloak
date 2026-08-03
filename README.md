@@ -193,3 +193,21 @@ extensions responsibly (see [`SECURITY.md`](SECURITY.md)).
 
 <sub>Built as part of open research on Turkish- and multilingual-first LLM
 security. If `uncloak` saved you from a bad install, a ⭐ helps others find it.</sub>
+
+---
+
+## İlgili AltaySec Kaynakları
+
+- 📖 [Sıfır Genişlikli Unicode ile Gizli Talimat: SKILL.md Tedarik Zinciri Saldırısı](https://altaysec.com.tr/arastirmalar/sifir-genislikli-unicode-gizli-talimat) — konunun derinlemesine Türkçe analizi
+- 🌐 [AltaySec Araştırmalar](https://altaysec.com.tr/arastirmalar/) — Türkçe yapay zekâ güvenliği yazıları
+
+## Atıf
+
+```bibtex
+@software{altaysec_uncloak_2026,
+  author = {{AltaySec}},
+  title  = {uncloak},
+  year   = {2026},
+  url    = {https://github.com/fevziegeyurtsevenler/uncloak}
+}
+```
