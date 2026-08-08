@@ -7,6 +7,27 @@
 <meta name="description" content="Paste a SKILL.md, MCP config or rules file and reveal hidden Unicode instructions and prompt-injection risks — entirely in your browser. Multilingual (EN+TR). By AltaySec.">
 <meta property="og:title" content="uncloak — reveal the prompt injection you can't see">
 <meta property="og:description" content="Paste an AI agent extension and see what the model actually reads. Runs in your browser, nothing leaves the page.">
+<meta property="og:url" content="https://fevziegeyurtsevenler.github.io/uncloak/">
+<meta property="og:site_name" content="uncloak">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://fevziegeyurtsevenler.github.io/uncloak/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "uncloak",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Any (web browser)",
+  "isAccessibleForFree": true,
+  "url": "https://fevziegeyurtsevenler.github.io/uncloak/",
+  "description": "In-browser scanner that reveals invisible Unicode prompt injection hidden inside SKILL.md files, MCP configs and rules files. Nothing you paste leaves the page.",
+  "author": {
+    "@type": "Person",
+    "name": "Fevzi Ege Yurtsevenler",
+    "url": "https://github.com/fevziegeyurtsevenler"
+  }
+}
+</script>
 <style>
   :root{
     --bg:#0c0a12; --surface:#15121d; --surface2:#1d1929; --line:#2a2438;
@@ -113,7 +134,8 @@
   <p class="lede">Paste an AI agent extension — an Agent <b>Skill</b>, an <b>MCP</b> config, or a
     <b>rules file</b> (<code>.cursorrules</code>, <code>CLAUDE.md</code>). uncloak decodes the
     invisible Unicode and flags injection, exfiltration and supply-chain risks the way the model
-    reads them — not the way your eyes do.</p>
+    reads them — not the way your eyes do.
+    <span lang="tr">Türkçe: SKILL.md / MCP config içine gizlenmiş görünmez Unicode prompt injection'ı tarayıcıda ortaya çıkarır.</span></p>
 
   <div class="card panel">
     <textarea id="in" spellcheck="false" placeholder="Paste a SKILL.md / mcp.json / .cursorrules here…"></textarea>
@@ -132,7 +154,7 @@
   <section id="out" aria-live="polite"></section>
 
   <footer>
-    <span>Open source · zero-dependency · multilingual (EN + TR)</span>
+    <span>Open source · zero-dependency · multilingual (EN + TR) · Built by <a href="https://altaysec.com.tr" target="_blank" rel="noopener">AltaySec</a></span>
     <span>
       <button class="toggle" id="theme">◐ theme</button>
       &nbsp; <a href="https://github.com/fevziegeyurtsevenler/uncloak" target="_blank" rel="noopener">github.com/fevziegeyurtsevenler/uncloak ↗</a>
