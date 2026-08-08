@@ -14,6 +14,7 @@
   <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-blue.svg">
   <img alt="Dependencies: none" src="https://img.shields.io/badge/dependencies-0-brightgreen.svg">
   <img alt="Output: terminal · JSON · SARIF" src="https://img.shields.io/badge/output-terminal%20%C2%B7%20JSON%20%C2%B7%20SARIF-informational">
+  <a href="https://github.com/fevziegeyurtsevenler/uncloak/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/fevziegeyurtsevenler/uncloak/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 ---
@@ -187,6 +188,8 @@ extensions responsibly (see [`SECURITY.md`](SECURITY.md)).
 - 🤗 [Hugging Face datasets](https://huggingface.co/collections/fevziegeyurtsevenler/ai-and-llm-security-turkce-first-6a65d25ea9417230c3fc9474) — incl. [invisible-unicode-injection](https://huggingface.co/datasets/fevziegeyurtsevenler/invisible-unicode-injection) · [mcp-tool-poisoning](https://huggingface.co/datasets/fevziegeyurtsevenler/mcp-tool-poisoning)
 - 🌐 [AltaySec](https://altaysec.com.tr) · [Açık Kaynak Lab](https://altaysec.com.tr/acik-kaynak)
 
+Part of the Turkish AI security ecosystem → [LLM-Security-Turkiye](https://github.com/fevziegeyurtsevenler/LLM-Security-Turkiye)
+
 ## License
 
 [Apache-2.0](LICENSE) © Fevzi Ege Yurtsevenler
@@ -205,7 +208,7 @@ security. If `uncloak` saved you from a bad install, a ⭐ helps others find it.
 
 ```bibtex
 @software{altaysec_uncloak_2026,
-  author = {{AltaySec}},
+  author = {Yurtsevenler, Fevzi Ege},
   title  = {uncloak},
   year   = {2026},
   url    = {https://github.com/fevziegeyurtsevenler/uncloak}
